@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: my-searxng
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: INSTANCE_NAME
+        value: MySearch
+      - key: AUTOCOMPLETE
+        value: duckduckgo
+    healthCheckPath: /

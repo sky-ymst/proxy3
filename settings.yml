@@ -1,0 +1,63 @@
+use_default_settings: true
+
+general:
+  instance_name: "MySearch"
+  privacypolicy_url: false
+  donation_url: false
+  contact_url: false
+  enable_metrics: false
+
+brand:
+  new_issue_url: false
+  docs_url: false
+  public_instances: false
+  wiki_url: false
+  issue_url: false
+
+search:
+  safe_search: 0
+  autocomplete: "duckduckgo"
+  autocomplete_min: 2
+  default_lang: "ja"
+  formats:
+    - html
+    - json
+
+server:
+  # secret_keyは初回起動時にentrypointがランダム値へ自動置換する
+  secret_key: "ultrasecretkey"
+  limiter: false
+  image_proxy: true
+  method: "GET"
+
+ui:
+  static_use_hash: true
+  default_locale: "ja"
+  default_theme: simple
+  theme_args:
+    simple_style: auto
+
+# 検索エンジン個別設定(有効化したいものだけ明示的にON)
+# use_default_settings: true により、ここに書かないエンジンは
+# SearXNG標準のデフォルト設定(多くは有効)がそのまま使われる。
+engines:
+  - name: google
+    disabled: false
+  - name: bing
+    disabled: false
+  - name: duckduckgo
+    disabled: false
+  - name: brave
+    disabled: false
+  - name: startpage
+    disabled: false
+  - name: wikipedia
+    disabled: false
+  - name: google images
+    disabled: false
+  - name: bing images
+    disabled: false
+  - name: google news
+    disabled: false
+  - name: youtube
+    disabled: false
