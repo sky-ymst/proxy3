@@ -15,11 +15,15 @@ COPY limiter.toml /etc/searxng/limiter.toml
 COPY docker-entrypoint-wrapper.sh /usr/local/searxng/docker-entrypoint-wrapper.sh
 
 USER root
-RUN chmod +x /usr/local/searxng/docker-entrypoint-wrapper.sh && \
+# Windows等で編集された場合のCRLF改行コードをLFに強制変換し、
+# 実行権限を付与する(exit 127 = "コマンドが見つからない"の典型的な原因対策)。
+RUN sed -i 's/\r$//' /usr/local/searxng/docker-entrypoint-wrapper.sh && \
+    chmod +x /usr/local/searxng/docker-entrypoint-wrapper.sh && \
     chown searxng:searxng /etc/searxng/settings.yml /etc/searxng/limiter.toml
 
 USER searxng
 
 EXPOSE 8080
 
-ENTRYPOINT ["/usr/local/searxng/docker-entrypoint-wrapper.sh"]
+# シェル経由で明示的に実行することで、実行ビット消失やshebang不整合にも耐性を持たせる
+ENTRYPOINT ["/bin/sh", "/usr/local/searxng/docker-entrypoint-wrapper.sh"]
